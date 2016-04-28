@@ -1,9 +1,4 @@
-%% compute translation matrix
-%  input:   cp1 - correspondence points in image1, n x 2 matrix
-%           cp2 - correspondence points in image2, n x 2 matrix
-%  output:  H - translation matrix that transforms points in image2
-%               to points in image1, 3 x 3 matrix
-%  if overdetermined, solve in the least-sqaure sense
+%% I do a translate, instead of projection, because this is more stable
 function [ T ] = solveTranslation( cp1, cp2 )
 
 n = size(cp1,1);

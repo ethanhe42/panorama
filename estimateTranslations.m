@@ -1,6 +1,3 @@
-%% estimate pairwise translations
-%  input:   imgs - source images
-%  output:  translations - translation matrices to align each pair of images
 function [ translations ] = estimateTranslations( imgs )
 % parameters
 edgeThresh = 10;

@@ -1,33 +1,19 @@
-%% create panorama image using cylindrical projection
-%  input:   imgs - source images
-%           f - local length
-%           k1, k2 - radial distortion parameters
-%           loop - is is a full panorama?
-%           matchExp - match exposures across images?
-%           blend - use which blending technique? 'Alpha' or 'Pyramid'
-%  output:  newImg - panorama image
 function [ newImg ] = createPanoramaCyl( imgs, f, k1, k2, loop, matchExp, blend )
-% putting a copy of the first image to the end
 if loop
     imgs(:, :, :, end + 1) = imgs(:, :, :, 1);
 end
-
-% cylindrical warping
 nImgs = size(imgs, 4);
 cylImgs = zeros(size(imgs), 'like', imgs);
 for i = 1 : nImgs
     cylImgs(:, :, :, i) = cylProj(imgs(:, :, :, i), f, k1, k2);
 end
 
-% pairwise transformation estimation
 translations = estimateTranslations(cylImgs);
 
-% exposure matching
 if matchExp
     cylImgs = matchExposures(cylImgs, translations, loop);
 end
 
-% transformation accumulation
 accTranslations = zeros(size(translations));
 accTranslations(:, :, 1) = translations(:, :, 1);
 for i = 2 : nImgs
@@ -47,7 +33,7 @@ if loop
     end
     driftMatrix = [1 -driftSlope driftSlope; 0 1 0; 0 0 1];
     for i = 1 : nImgs
-     %   accTranslations(:, :, i) = driftMatrix * accTranslations(:, :, i);
+   %     accTranslations(:, :, i) = driftMatrix * accTranslations(:, :, i);
     end
 else
     maxX = width;
