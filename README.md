@@ -5,11 +5,11 @@
 - [x] SURF features, (SIFT is better)  
 
 ##### transformation
-- [ ] boost translate
+- [x] boost translate
 - [x] homography is not robust
 
 ##### matching
-- [ ] boost RANSAC
+- [x] boost RANSAC
 - [ ] exposure matching  
 
 ##### global adjustment
@@ -17,6 +17,11 @@
 - [ ] bundle adjustment(difficult way)  
 
 ##### merging and blending  
-- [ ] Alpha  
+- [x] Alpha  
 - [ ] Pyramid  
 - [x] Noblend
+
+##### recognize panorama(random inputs)
+- [ ] hard  
+
+
