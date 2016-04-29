@@ -1,39 +1,55 @@
-function [bestSetting] = RANSAC(confidence, inliner_Ratio, Npairs, data, epsilon, settingFunctionHandle, SSDFunctionHandle)
+function [T] = RANSAC(confidence, inliner_Ratio, Npairs, data, epsilon)
 
 m = ceil(log(1 - confidence) / log(1 - inliner_Ratio^Npairs)); % calculate number of loops
-numPoints = size(data, 1); %data size
-bestNumInliers = 0;
-bestSet = [];
+NPoints = size(data, 1);
+MaxInliers = 0;
+
+A = zeros(2*Npairs, 2);
+b = zeros(2*Npairs, 1);
+for i = 1:Npairs
+    A(2*i-1,1) = 1;
+    A(2*i,2) = 1;
+end
 
 for i = 1:m
-    set = 1:numPoints; % create set of all possible points
-    sampleIndicies = randperm(numPoints, Npairs);
+    sampleIndicies = randperm(NPoints, Npairs);
     
     samples = data(sampleIndicies,:,:);
-    setting = settingFunctionHandle(samples(:,:,1), samples(:,:,2)); % get current settings
     
-    % loop over the rest to find inliers
-    remaining = set;
-    numInliers = 0;
-    for j = remaining
-        SSD = SSDFunctionHandle(data(j,:,:), setting);
-        
-        if SSD < epsilon
-            numInliers = numInliers + 1;
-        else % not inlier, remove from set
-            set(set == j) = [];
-        end
+    pair0=samples(:,:,1);
+    pair1=samples(:,:,2);
+
+    for j = 1:Npairs
+        b(2*j-1) = pair0(j,1)-pair1(j,1);
+        b(2*j) = pair0(j,2)-pair1(j,2);
     end
+    t = A \ b;
+    T = [1 0 t(1); 0 1 t(2); 0 0 1];
     
-    % check if new best
-    if numInliers > bestNumInliers
-        bestSet = set;
-        bestNumInliers = numInliers;
+    
+    p_prime = T * data(:,:,2)';
+    error = data(:,:,1)' - p_prime;
+    SE = error .^ 2;
+    SSE = sum(SE);
+    
+    numInliers=sum(SSE<epsilon);
+    
+    % if better
+    if numInliers > MaxInliers
+        bestSet = find(SSE<epsilon);
+        MaxInliers = numInliers;
     end
 end
 
 % use inliers to recompute transform
-bestData = data(bestSet,:,:);
-bestSetting = settingFunctionHandle(bestData(:,:,1), bestData(:,:,2)); % get best settings using all inliers
+pair0=data(bestSet,:,1);
+pair1= data(bestSet,:,2);
+
+for j = 1:Npairs
+    b(2*j-1) = pair0(j,1)-pair1(j,1);
+    b(2*j) = pair0(j,2)-pair1(j,2);
+end
+t = A \ b;
+T = [1 0 t(1); 0 1 t(2); 0 0 1];
 
 end

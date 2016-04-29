@@ -1,4 +1,4 @@
-function [potential_matches, scores] = getPotentialMatches(f1, d1, f2, d2)
+function [potential_matches, scores] = getMatches(f1, d1, f2, d2)
 
 [matches, scores] = vl_ubcmatch(d1, d2);
 

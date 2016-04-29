@@ -62,10 +62,6 @@ end
 disp(['end2end alignment:',int2str(cputime-t),' sec']);
 t=cputime;
 
-% image mask - 1 for image & 0 for border
-mask = ones(height, width);
-mask = logical(warp(mask, f));
-
 newImg = mergeAlpha(cylImgs, mask, accTranslations, newHeight, newWidth);
 
 disp(['alpha merging:',int2str(cputime-t),' sec']);
