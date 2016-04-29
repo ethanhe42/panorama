@@ -1,10 +1,3 @@
-%% merge images using Alpha blending
-%  input:   imgs - source images
-%           mask - image mask
-%           transforms - transformation matrices to transform each images
-%                        into the new coordinate system
-%           newHeight, newWidth - size of the new coordinate system
-%  output:  newImg - merged image
 function [ newImg ] = mergeAlpha( imgs, mask, transforms, newHeight, newWidth )
 % image information
 height = size(imgs, 1);
@@ -14,10 +7,7 @@ nImgs = size(imgs, 4);
 
 % alpha mask
 mask = imcomplement(mask);
-mask(1, :) = 1;
-mask(end, :) = 1;
-mask(:, 1) = 1;
-mask(:, end) = 1;
+
 mask = bwdist(mask, 'euclidean');
 mask = mask ./ max(max(mask));
 
@@ -39,17 +29,9 @@ for y = 1 : newHeight
             p2 = p2 ./ p2(3);
             if p2(1) >= 1 && p2(1) < height && p2(2) >= 1 && p2(2) < width
                 i = floor(p2(2));
-                a = p2(2) - i;
                 j = floor(p2(1));
-                b = p2(1) - j;
-                pixel = (1 - a) * (1 - b) * imgs(j, i, :, k)...
-                    + a * (1 - b) * imgs(j, i + 1, :, k)...
-                    + a * b * imgs(j + 1, i + 1, :, k)...
-                    + (1 - a) * b * imgs(j + 1, i, :, k);
-                alpha = (1 - a) * (1 - b) * mask(j, i)...
-                    + a * (1 - b) * mask(j, i + 1)...
-                    + a * b * mask(j + 1, i + 1)...
-                    + (1 - a) * b * mask(j + 1, i);
+                pixel =imgs(j, i, :, k);
+                alpha =mask(j, i);
                 pixelSum = pixelSum + double(squeeze(pixel)) * double(alpha);
                 alphaSum = alphaSum + double(alpha);
             end

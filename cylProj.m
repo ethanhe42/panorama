@@ -1,4 +1,4 @@
-function [ cylImg ] = cylProj( img, f, k1, k2 )
+function [ cylImg ] = cylProj( img, f)
 % image information
 height = size(img, 1);
 width = size(img, 2);
@@ -13,9 +13,8 @@ for yt = 1 : height
         xd = (xt - xc) / f;
         yd = (yt - yc) / f;
         rSqr = xd * xd + yd * yd;
-        coeff = 1 + k1 * rSqr + k2 * rSqr * rSqr;
-        xn = xd * coeff;
-        yn = yd * coeff;
+        xn = xd ;
+        yn = yd ;
         % cylindrical warping
         theta = xn;
         h = yn;

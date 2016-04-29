@@ -25,21 +25,14 @@ for y = 1 : newHeight
         p1 = [y; x; 1];
         for k = 1 : nImgs
             p2 = backTransforms(:, :, k) * p1;
+            % homography
             p2 = p2 ./ p2(3);
             if p2(1) >= 1 && p2(1) < height && p2(2) >= 1 && p2(2) < width
                 i = floor(p2(2));
-                a = p2(2) - i;
                 j = floor(p2(1));
-                b = p2(1) - j;
-                alpha = (1 - a) * (1 - b) * double(mask(j, i))...
-                    + a * (1 - b) * double(mask(j, i + 1))...
-                    + a * b * double(mask(j + 1, i + 1))...
-                    + (1 - a) * b * double(mask(j + 1, i));
+                alpha = mask(j, i);
                 if alpha > 0.9
-                    newImg(y, x, :) = (1 - a) * (1 - b) * imgs(j, i, :, k)...
-                        + a * (1 - b) * imgs(j, i + 1, :, k)...
-                        + a * b * imgs(j + 1, i + 1, :, k)...
-                        + (1 - a) * b * imgs(j + 1, i, :, k);
+                    newImg(y, x, :) = imgs(j, i, :, k);
                     break;
                 end
             end

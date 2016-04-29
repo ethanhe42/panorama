@@ -1,10 +1,4 @@
-%% match exposures across images
-%  input:   imgs - source images
-%           transforms - pairwise transformation matrices
-%           loop - is is a full panorama?
-%  output:  newImgs - exposure matched images
 function [ newImgs ] = matchExposures( imgs, transforms, loop )
-% image information
 nImgs = size(imgs, 4);
 
 % pairwise matching

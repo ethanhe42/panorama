@@ -1,9 +1,3 @@
-%% merge images using Pyramid blending
-%  input:   imgs - source images
-%           transforms - transformation matrices to transform each images
-%                        into the new coordinate system
-%           newHeight - height of the new coordinate system
-%  output:  finalImg - merged image
 function [ finalImg ] = mergePyramid( imgs, transforms, newHeight )
 
 nImgs = size(imgs, 4);

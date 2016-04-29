@@ -4,14 +4,21 @@ if loop
 end
 nImgs = size(imgs, 4);
 cylImgs = zeros(size(imgs), 'like', imgs);
+
+t=cputime;
 for i = 1 : nImgs
-    cylImgs(:, :, :, i) = cylProj(imgs(:, :, :, i), f, k1, k2);
+    cylImgs(:, :, :, i) = warp(imgs(:, :, :, i), f);
 end
+disp(['warping:',int2str(cputime-t),' sec']);
+t=cputime;
 
 translations = estimateTranslations(cylImgs);
 
+disp(['SIFT & RANSAC: ',int2str(cputime-t),' sec']);
+t=cputime;
+
 if matchExp
-    cylImgs = matchExposures(cylImgs, translations, loop);
+     cylImgs = matchExposures(cylImgs, translations, loop);
 end
 
 accTranslations = zeros(size(translations));
@@ -20,62 +27,49 @@ for i = 2 : nImgs
     accTranslations(:, :, i) = accTranslations(:, :, i - 1) * translations(:, :, i);
 end
 
-% new size computation & transformation refinement
+% end to end adjustment
 width = size(cylImgs, 2);
 height = size(cylImgs, 1);
+newWidth = abs(round(accTranslations(2, 3, end))) + width;
 if loop
+    % \delta x / \delta y
     driftSlope = accTranslations(1, 3, end) / accTranslations(2, 3, end);
-    newWidth = abs(round(accTranslations(2, 3, end))) + width;
+    
     newHeight = height;
+    % y shift is negative
     if accTranslations(2, 3, end) < 0
         accTranslations(2, 3, :) = accTranslations(2, 3, :) - accTranslations(2, 3, end);
         accTranslations(1, 3, :) = accTranslations(1, 3, :) - accTranslations(1, 3, end);
     end
     driftMatrix = [1 -driftSlope driftSlope; 0 1 0; 0 0 1];
     for i = 1 : nImgs
-   %     accTranslations(:, :, i) = driftMatrix * accTranslations(:, :, i);
+        accTranslations(:, :, i) = driftMatrix * accTranslations(:, :, i);
     end
 else
-    maxX = width;
-    minX = 1;
     maxY = height;
     minY = 1;
-    frame = [[1; 1; 1], [height; 1; 1], [1; width; 1], [height; width; 1]];
+    minX = 1;
     for i = 2 : nImgs 
-        newFrame = accTranslations(:, :, i) * frame;
-        newFrame(:, 1) = newFrame(:, 1) ./ newFrame(3, 1);
-        newFrame(:, 2) = newFrame(:, 2) ./ newFrame(3, 2);
-        newFrame(:, 3) = newFrame(:, 3) ./ newFrame(3, 3);
-        newFrame(:, 4) = newFrame(:, 4) ./ newFrame(3, 4);
-        maxX = max(maxX, max(newFrame(2, :)));
-        minX = min(minX, min(newFrame(2, :)));
-        maxY = max(maxY, max(newFrame(1, :)));
-        minY = min(minY, min(newFrame(1, :)));
+        maxY = max(maxY, accTranslations(1,3,i)+height);
+        minY = min(minY, accTranslations(1,3,i));
+        minX=min(minX,accTranslations(2,3,i));
     end
-    newWidth = ceil(maxX) - floor(minX) + 1;
     newHeight = ceil(maxY) - floor(minY) + 1;
-    offsetX = 1 - floor(minX);
-    offsetY = 1 - floor(minY);
-    accTranslations(2, 3, :) = accTranslations(2, 3, :) + offsetX;
-    accTranslations(1, 3, :) = accTranslations(1, 3, :) + offsetY;
+    accTranslations(2, 3, :) = accTranslations(2, 3, :) - floor(minX);
+    accTranslations(1, 3, :) = accTranslations(1, 3, :) - floor(minY);
 end
+
+disp(['end2end alignment:',int2str(cputime-t),' sec']);
+t=cputime;
 
 % image mask - 1 for image & 0 for border
 mask = ones(height, width);
-mask = logical(cylProj(mask, f, k1, k2));
+mask = logical(warp(mask, f));
 
-% merging images
-if strcmp(blend, 'Alpha')
-    newImg = mergeAlpha(cylImgs, mask, accTranslations, newHeight, newWidth);
-elseif strcmp(blend, 'Pyramid')
-    newImg = mergePyramid( cylImgs, accTranslations, newHeight );
-else % if strcmp(blend, 'NoBlend')
-    newImg = mergeNoBlend(cylImgs, mask, accTranslations, newHeight, newWidth);
-end
+newImg = mergeAlpha(cylImgs, mask, accTranslations, newHeight, newWidth);
 
-% cropping image
-if loop
-    newImg = newImg(:, width / 2 : newWidth - width / 2, :);
-end
+disp(['alpha merging:',int2str(cputime-t),' sec']);
+t=cputime;
+
 end
 

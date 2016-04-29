@@ -16,7 +16,7 @@ montage(buildingScene.ImageLocation)
 
 %% SURF features
 I = read(buildingScene, 1);
-I=warp(I,f,s);
+I=warp(I,f);
 grayImage = rgb2gray(I);
 MetricThreshold=100;
 points = detectSURFFeatures(grayImage,'MetricThreshold',MetricThreshold);
