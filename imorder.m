@@ -71,8 +71,7 @@ for i=2:nImgs
         failed=false;
         break
     end
-    
-	if failed==false
+    if failed==false
         sequence=[nextIdx(real_idx),sequence];
     else
         break

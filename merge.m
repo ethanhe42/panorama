@@ -17,7 +17,6 @@ for i=1:nChannels
     m(:,:,i)=mask;
 end
 mask=m;
-padding=1000;
 % image merging
 
 max_h=0;
