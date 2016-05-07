@@ -11,7 +11,7 @@ I implemented all of the elaborate features described in **BONUS** part.
 - If you want to see results directly, go to ./results folder
 - If you want to test all images sets with only one click,run RunAllDatasets.m.(This may run 10 more minutes, because I didn't resize large images. If I have more time, I can add this feature)  
 - If you want to specify the image folder, run main.m with path to images folder as argument(as described in assignment)  
-Note that, if you use the last way to run my code, the folder names should be as follows(I need to tune focus on each image set)  
+**Note that**, if you use the last way to run my code, the folder names should be as follows(I need to tune focus on each image set)  
 'ucsb4','family_house','glacier4','yellowstone2','GrandCanyon1','yellowstone5','yellowstone4','west_campus1','redrock','intersection','GrandCanyon2'  
 For example:  
 main('./imgs/ucsb4/');  
