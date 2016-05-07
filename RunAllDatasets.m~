@@ -1,6 +1,0 @@
-ttt=0;
-for i=1:11
-    panorama=main(i);
-    imshow(panorama)
-end
-disp((cputime-ttt
