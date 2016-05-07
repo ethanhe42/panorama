@@ -1,6 +1,8 @@
 # panorama
-This is my panorama creator, images files are already in ./imgs
-
+panorama creator  
+![img](https://github.com/yihui-he/panorama/blob/master/results/intersection.jpg)  
+![img](https://github.com/yihui-he/panorama/blob/master/results/GrandCanyon2.jpg)  
+![img](https://github.com/yihui-he/panorama/blob/master/results/redrock.jpg)  
 ### bonus  
 I implemented all of the elaborate features described in **BONUS** part.  
 - I'm able to handle 360 panorama.
@@ -8,6 +10,7 @@ I implemented all of the elaborate features described in **BONUS** part.
 - I use color blending and smoothing to make the image more continuous.  
 
 ### how to run  
+images files are already in ./imgs  
 - If you want to see results directly, go to ./results folder
 - If you want to test all images sets with only one click,run RunAllDatasets.m.(This may run 10 more minutes, because I didn't resize large images. If I have more time, I can add this feature)  
 - If you want to specify the image folder, run main.m with path to images folder as argument(as described in assignment)  
