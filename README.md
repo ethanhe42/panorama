@@ -1,5 +1,4 @@
 # panorama
-panorama creator  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/intersection.jpg)  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/GrandCanyon2.jpg)  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/redrock.jpg)  
@@ -31,6 +30,7 @@ They are already shuffled. You can see them in imgs folder.
 Or you can run shuffle.bash to shuffle them again.  
 As described in Brown's paper, I use $N\_inlier>k\*N\_pairs+b$ to compute whether a pair of images match or not  
 k,b are const. Set to 5.9 and 0.22 respectively.  
+See [recognizing panorama](https://github.com/yihui-he/panorama/blob/master/resource/recognizing_panorama.pdf) for details
 
 ### merging and blending  
 - [x] Alpha  
@@ -54,5 +54,5 @@ k,b are const. Set to 5.9 and 0.22 respectively.
 - [x] use SIFT features(using VLFeat library, professor allowed)  
 - [x] SURF features, (SIFT is better)  
 
-
+[A nice tutorial](https://github.com/yihui-he/panorama/blob/master/resource/stitching%20tutorial.pdf) on panorama you can refer to.  
 
