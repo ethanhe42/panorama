@@ -26,7 +26,7 @@ For example:
 I select two random sequence images set:family\_house, and west\_campus1  
 They are already shuffled. You can see them in imgs folder.  
 Or you can run shuffle.bash to shuffle them again.  
-As described in Brown's paper, I use N\_inlier>k\*N\_pairs+b to compute whether a pair of images match or not  
+As described in Brown's paper, I use $N\_inlier>k\*N\_pairs+b$ to compute whether a pair of images match or not  
 k,b are const. Set to 5.9 and 0.22 respectively.  
 
 ##### merging and blending  
