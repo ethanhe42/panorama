@@ -19,7 +19,7 @@ For example:
 
 ######details of my algorithms are shown below:  
 
-##### 360 panorama
+### 360 panorama
 - [x] mapping image to cylindrical coordinate
 
 ### recognize panorama(random inputs)
