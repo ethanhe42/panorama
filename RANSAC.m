@@ -1,4 +1,4 @@
-function [T] = RANSAC(confidence, inliner_Ratio, Npairs, data, epsilon)
+function [T,MaxInliers] = RANSAC(confidence, inliner_Ratio, Npairs, data, epsilon)
 
 m = ceil(log(1 - confidence) / log(1 - inliner_Ratio^Npairs)); % calculate number of loops
 NPoints = size(data, 1);
