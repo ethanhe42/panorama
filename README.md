@@ -33,6 +33,7 @@ Or you can run shuffle.bash to shuffle them again.
 As described in Brown's paper, I use $N\_inlier>k\*N\_pairs+b$ to compute whether a pair of images match or not  
 k,b are const. Set to 5.9 and 0.22 respectively.  
 See [recognizing panorama](https://github.com/yihui-he/panorama/blob/master/resource/recognizing_panorama.pdf) for details  
+
 *imorder.m*  
 
 ### merging and blending  
