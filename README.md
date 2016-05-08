@@ -10,9 +10,9 @@ I implemented all of the elaborate features described in **BONUS** part.
 - I use color blending and smoothing to make the image more continuous.  
 
 ### how to run  
-images files are already in ./imgs  
+images sets are already in ./imgs  
 - If you want to see results directly, go to ./results folder
-- If you want to test all images sets with only one click,run RunAllDatasets.m.(This may run 10 more minutes, because I didn't resize large images. If I have more time, I can add this feature)  
+- If you want to test all images sets with only one click,run RunAllDatasets.m.(This may run 1 or more minutes)  
 - If you want to specify the image folder, run main.m with path to images folder as argument(as described in assignment)  
 
 **Note that**, if you use the last way to run my code, the folder names should be as follows(I need to tune focus on each image set)  
@@ -65,6 +65,12 @@ See [recognizing panorama](https://github.com/yihui-he/panorama/blob/master/reso
 - [x] SURF features, (SIFT is better)  
 
 *getSIFTFeatures.m, getMatches.m*  
-
+  
+### resize  
+- [x] I resize image larger than 400 pixel in width  
+  
+*main.m*  
+  
+### References  
 [A nice tutorial](https://github.com/yihui-he/panorama/blob/master/resource/stitching%20tutorial.pdf) on panorama I find useful.  
 
