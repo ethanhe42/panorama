@@ -23,7 +23,7 @@ For example:
 ######details of my algorithms are shown below:  
 
 ### 360 panorama
-- [x] mapping image to cylindrical coordinate
+- [x] mapping image to cylindrical coordinate  
 *warp.m*  
 
 ### recognize panorama(random inputs)
@@ -32,8 +32,8 @@ They are already shuffled. You can see them in imgs folder.
 Or you can run shuffle.bash to shuffle them again.  
 As described in Brown's paper, I use $N\_inlier>k\*N\_pairs+b$ to compute whether a pair of images match or not  
 k,b are const. Set to 5.9 and 0.22 respectively.  
+See [recognizing panorama](https://github.com/yihui-he/panorama/blob/master/resource/recognizing_panorama.pdf) for details  
 *imorder.m*  
-See [recognizing panorama](https://github.com/yihui-he/panorama/blob/master/resource/recognizing_panorama.pdf) for details
 
 ### merging and blending  
 - [x] Alpha  
