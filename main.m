@@ -24,6 +24,7 @@ function [panorama]=main(filename)
     focus=[595,400,2000,1000,1000,1000,1000,1000,2000,2000,2000];
     Full360=[0,0,0,0,0,0,0,0,0,0,0];
     unordered=[0,1,0,0,0,0,0,1,0,0,0];
+    size_bound=400.0;
     %%
     full=Full360(which);
     f=focus(which);
@@ -31,11 +32,22 @@ function [panorama]=main(filename)
     disp(['creating panorama for ',datasets{which}]);
     s=imageSet(fullfile(path,datasets{which}));
     img=read(s,1);
-    imgs=zeros(size(img,1),size(img,2),size(img,3),s.Count,'like',img);
-    for i=1:s.Count
-        imgs(:,:,:,i)=read(s,i);
+    size_1=size(img,1);
+    if size_1>size_bound
+        img=imresize(img,size_bound/size_1);
     end
-
+    imgs=zeros(size(img,1),size(img,2),size(img,3),s.Count,'like',img);
+    t=cputime;
+    for i=1:s.Count
+        new_img=read(s,i);
+        if size_1>size_bound
+            imgs(:,:,:,i)=imresize(new_img,size_bound/size_1);
+        else
+            imgs(:,:,:,i)=new_img;
+        end
+        
+    end
+    disp(['resizing',int2str(cputime-t),' sec']);
 
     if unordered(which)
         t=cputime;
