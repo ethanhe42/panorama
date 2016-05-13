@@ -1,5 +1,5 @@
 # panorama  
-**This is my private git repository for cs281b**  
+**Hi, I'm Yihui, this is my repo for cs281b 2016 in UCSB. **  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/intersection.jpg)  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/GrandCanyon2.jpg)  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/redrock.jpg)  
