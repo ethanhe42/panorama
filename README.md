@@ -1,24 +1,19 @@
 # panorama  
-## Hi, I'm Yihui, this is my repo for cs281b 2016 in UCSB.  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/intersection.jpg)  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/GrandCanyon2.jpg)  
 ![img](https://github.com/yihui-he/panorama/blob/master/results/redrock.jpg)  
-### bonus  
-I implemented all of the elaborate features described in **BONUS** part.  
-- I'm able to handle 360 panorama.
+### features  
+- able to handle 360 panorama.
 - Random sequence of images input is welcomed.
-- I use color blending and smoothing to make the image more continuous.  
+- use color blending and smoothing to make the image more continuous.  
 
 ### how to run  
 images sets are already in ./imgs  
 - If you want to see results directly, go to ./results folder
-- If you want to test all images sets with only one click,run RunAllDatasets.m.(This may run 1 or more minutes)  
-- If you want to specify the image folder, run main.m with path to images folder as argument(as described in assignment)  
-
-**Note that**, if you use the last way to run my code, the folder names should be as follows(I need to tune focus on each image set)  
-'ucsb4','family_house','glacier4','yellowstone2','GrandCanyon1','yellowstone5','yellowstone4','west_campus1','redrock','intersection','GrandCanyon2'  
-For example:  
-`main('./imgs/ucsb4/');`
+- If you want to test all images sets with only one click,run RunAllDatasets.m.(10 image sets, about 1 minute)  
+- If you want to specify the image folder, run main.m with path to images folder as argument as follow:  
+` main('./imgs/redrock');`  
+**Note that**, this currently support image sets in `imgs` folder. If you use your own image set, you need to set focus length and other parameters in `main.m`.
 
 ######details of my algorithms are shown below:  
 
