@@ -8,6 +8,7 @@
 - use color blending and smoothing to make the image more continuous.  
 
 ### how to run  
+Prerequisite: matlab 2014b or higher  
 images sets are already in ./imgs  
 - If you want to see results directly, go to ./results folder
 - If you want to test all images sets with only one click,run RunAllDatasets.m.(10 image sets, about 1 minute)  
