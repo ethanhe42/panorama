@@ -1,7 +1,7 @@
 # panorama  
-![img](https://github.com/yihui-he/panorama/blob/master/results/intersection.jpg)  
-![img](https://github.com/yihui-he/panorama/blob/master/results/GrandCanyon2.jpg)  
-![img](https://github.com/yihui-he/panorama/blob/master/results/redrock.jpg)  
+![img](https://raw.githubusercontent.com/yihui-he/panorama/master/results/intersection.jpg)  
+![img](https://raw.githubusercontent.com/yihui-he/panorama/master/results/GrandCanyon2.jpg)  
+![img](https://raw.githubusercontent.com/yihui-he/panorama/master/results/redrock.jpg)  
 ### features  
 - able to handle 360 panorama.
 - Random sequence of images input is welcomed.
